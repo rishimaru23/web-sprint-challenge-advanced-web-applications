@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import EditMenu from './EditMenu';
+
+import Color from './Color';
 
 const initialColor = {
   color: "",
@@ -9,18 +12,22 @@ const initialColor = {
 const ColorList = ({ colors, updateColors }) => {
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
+  const [editedColor, setEditedColor] = useState(initialColor);
 
   const editColor = color => {
     setEditing(true);
     setColorToEdit(color);
+    setEditedColor(color)
   };
 
   const saveEdit = e => {
     e.preventDefault();
-
+    updateColors(colors.map(color => color === editedColor ? colorToEdit: color));
+    setEditing(false)
   };
 
   const deleteColor = color => {
+    updateColors(colors.filter(item => item !== color))
   };
 
   return (

@@ -17,11 +17,16 @@ const Login = () => {
     .post('http://localhost:5000/api/login', credentials)
     .then(res => {
       localStorage.setItem('token', res.data.payload);
-      history.push('/bubblespage')
+      history.push('/bubbles')
       setFailLogin(false)
     })
-    .catch(err => setFailLogin(true));
+    .catch(err => {console.log(err)
+    });
+  }
+  if(setCredentials.username !== "Lambda" || setCredentials.password !== "i<3Lambd4" ){
+    setFailLogin()
   };
+    
 
   const handleChange = evt => {
     const { name, value } = evt.target;
